@@ -117,6 +117,13 @@ describe('parseFlagReportText', () => {
     expect(third.reason).toContain('Spelled')
   })
 
+  it('leaves an empty label empty instead of taking the next line', () => {
+    // "Term:" is blank on flags 1, 2 and 5 in the sample.
+    expect(parsed.flags[0].term).toBe('')
+    expect(parsed.flags[1].term).toBe('')
+    expect(parsed.flags[0].english).toBe('He walked into the temple with a quiet mind.')
+  })
+
   it('reads the summary line', () => {
     expect(parsed.summaryCounts).toMatchObject({
       meaningDrift: 1,

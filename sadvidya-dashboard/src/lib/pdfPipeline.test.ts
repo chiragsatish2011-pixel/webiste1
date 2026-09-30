@@ -58,6 +58,8 @@ describe('PDF -> text -> parsed report', () => {
     ])
     expect(parsed.flags[2].status).toBe('UNSURE')
     expect(parsed.flags[2].term).toBe('dehbhav')
+    expect(parsed.flags[0].term).toBe('') // a bare "Term:" line stays empty
+    expect(parsed.flags[0].english).toBe('He walked into the temple with a quiet mind.')
     expect(parsed.warnings).toEqual([])
 
     // MD 8 x .35 + Voice 8.5 x .25 + NP 9 x .25 + TC 10 x .15 = 8.66 -> 8.7

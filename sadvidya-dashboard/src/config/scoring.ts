@@ -16,7 +16,11 @@ export interface ParameterConfig {
   meaning: string
   /** A practical tip shown when this is the weakest parameter. */
   tip: string
-  /** Colour used in charts for this parameter. */
+  /**
+   * Colour used in charts for this parameter. These four were checked for
+   * colour-blind separation and contrast against the cream card background,
+   * so change them only together.
+   */
   color: string
 }
 
@@ -45,7 +49,7 @@ export const PARAMETERS: ParameterConfig[] = [
     weight: 0.25,
     meaning: 'The tone has gone flat, generic, or overly formal.',
     tip: 'Read the Hindi aloud. If it sounds like a notice board rather than you speaking, rewrite it with the conviction the English had.',
-    color: '#6B6B52',
+    color: '#2A6FBD',
   },
   {
     key: 'naturalPhrasing',
@@ -54,7 +58,7 @@ export const PARAMETERS: ParameterConfig[] = [
     weight: 0.25,
     meaning: 'The Hindi sounds stiff or copies English sentence structure.',
     tip: 'Rebuild the sentence in Hindi word order instead of translating it left to right.',
-    color: '#B98A6A',
+    color: '#12805A',
   },
   {
     key: 'termConsistency',
@@ -64,7 +68,7 @@ export const PARAMETERS: ParameterConfig[] = [
     meaning:
       'Names, scripture titles, and Sanskrit-rooted words (Akshardham, Vachanamrut, dehbhav) are handled inconsistently.',
     tip: 'Keep a short glossary of your key terms and use the same spelling for a term everywhere.',
-    color: '#8C9A6E',
+    color: '#6A4AB0',
   },
 ]
 

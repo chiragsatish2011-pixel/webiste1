@@ -5,8 +5,4 @@ export default defineConfig({
   plugins: [react()],
   // Relative base so the built site works from any folder / static host.
   base: './',
-  test: {
-    environment: 'node',
-    include: ['src/**/*.test.ts'],
-  },
 })

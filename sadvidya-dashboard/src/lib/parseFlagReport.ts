@@ -54,9 +54,15 @@ function matchLanguage(raw: string): Language {
   return normalise(raw).includes('gujarati') ? 'Gujarati' : 'Hindi'
 }
 
-/** Pull "Label: value" out of a block of text, case-insensitively. */
+/**
+ * Pull "Label: value" out of a block of text, case-insensitively.
+ * Spacing is matched with [^\S\n] (a space or tab but never a newline), so an
+ * empty label such as a bare "Term:" line returns "" instead of swallowing the
+ * next line.
+ */
 function field(block: string, label: string): string {
-  const re = new RegExp(`^[\\s>*-]*${label}\\s*[:\\-–]\\s*(.*)$`, 'im')
+  const space = '[^\\S\\n]*'
+  const re = new RegExp(`^${space}[>*-]*${space}${label}${space}[:\\-–]${space}(.*)$`, 'im')
   const m = block.match(re)
   return m ? m[1].trim() : ''
 }
