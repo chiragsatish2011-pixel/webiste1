@@ -1,0 +1,19 @@
+# Netlify build settings for the Sadvidya Translation Scorecard.
+#
+# The repository root holds a different site, so the build runs inside the
+# sadvidya-dashboard/ folder. Paths below are relative to that folder.
+
+[build]
+  base = "sadvidya-dashboard"
+  command = "npm run build"
+  publish = "dist"
+
+# React Router handles the routes, so every unknown path serves index.html
+# instead of a 404. Without this, reloading on /articles/3 would fail.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[build.environment]
+  NODE_VERSION = "22"

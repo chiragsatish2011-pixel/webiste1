@@ -1,0 +1,8 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "cd sadvidya-dashboard && npm install && npm run build",
+  "outputDirectory": "sadvidya-dashboard/dist",
+  "installCommand": "echo \"install runs inside sadvidya-dashboard\"",
+  "framework": null,
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}

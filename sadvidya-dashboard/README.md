@@ -30,12 +30,32 @@ Other commands:
 | `npm run preview` | Preview that build locally |
 | `npm run make-sample-pdf` | Rebuild `public/sample-flag-report.pdf` |
 
-### Putting it online later
+### Putting it online
 
-`npm run build` produces a plain `dist/` folder. Drop it on Netlify, Vercel,
-GitHub Pages, or any static host. The build uses relative paths, so it works
-from a sub-folder too. If you use a host that doesn't rewrite unknown paths to
-`index.html`, reload from the home page rather than a deep link.
+The repository is already set up for **Netlify** or **Vercel**, building from the
+`main` branch. The config files sit at the repository root because the dashboard
+lives in a sub-folder next to another site:
+
+- `netlify.toml` — builds inside `sadvidya-dashboard/`, publishes `dist/`,
+  and sends every unknown path to `index.html` so React Router deep links work.
+- `vercel.json` — the same three things for Vercel.
+- `public/_redirects` — Netlify's fallback rule, in case the site is created
+  without reading `netlify.toml`.
+
+**Netlify, once:** log in → *Add new site* → *Import an existing project* →
+pick `chiragsatish2011-pixel/webiste1` → leave the build settings as they are
+(`netlify.toml` fills them in) → *Deploy*. Production branch: `main`.
+
+**Vercel, once:** log in → *Add New… → Project* → import the same repository →
+leave Framework Preset as *Other* (`vercel.json` fills in the rest) → *Deploy*.
+Production branch: `main`.
+
+After that, every push to `main` redeploys automatically, and pull requests get
+their own preview URL.
+
+Nothing about the deployment changes how your data is stored: reports still live
+only in the browser you use, one set per browser. The public site is the app, not
+your reports.
 
 ---
 

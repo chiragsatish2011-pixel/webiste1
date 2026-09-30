@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  // Relative base so the built site works from any folder / static host.
-  base: './',
+  // Served from the root of its own domain on Netlify/Vercel. This must stay '/'
+  // (not './') so that a deep link like /articles/3 still finds the assets.
+  base: '/',
 })
