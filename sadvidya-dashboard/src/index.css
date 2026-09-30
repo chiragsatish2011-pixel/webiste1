@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-cream text-ink font-body antialiased;
+}
+
+/* Hindi / Gujarati text gets the Devanagari face and a little more line height. */
+.deva {
+  font-family: 'Noto Sans Devanagari', system-ui, sans-serif;
+  line-height: 1.8;
+}
+
+@layer components {
+  /* The standard card: cream-white, thin border, rounded, generous padding. */
+  .card {
+    @apply bg-card border border-ink/10 rounded-card shadow-soft;
+  }
+
+  .card-pad {
+    @apply p-5 sm:p-7;
+  }
+
+  .h-display {
+    @apply font-heading font-semibold tracking-tight;
+  }
+
+  .label-caps {
+    @apply font-heading text-[11px] uppercase tracking-[0.14em] text-olive;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 font-heading text-sm
+           transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/50;
+  }
+
+  .btn-primary {
+    @apply btn bg-terracotta text-cream hover:bg-terracotta/90;
+  }
+
+  .btn-ghost {
+    @apply btn border border-ink/15 text-ink hover:bg-sand/70;
+  }
+
+  .btn-quiet {
+    @apply btn text-olive hover:bg-sand/70;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-ink/15 bg-cream/60 px-3 py-2 font-body text-sm
+           focus:border-terracotta focus:outline-none;
+  }
+
+  /* The large faded section number that sits behind a section heading. */
+  .section-number {
+    @apply pointer-events-none select-none absolute -top-6 right-2 font-heading font-bold
+           text-[88px] sm:text-[120px] leading-none text-ink/[0.045];
+  }
+
+  .badge-flagged {
+    @apply inline-flex items-center rounded-full bg-terracotta/10 text-terracotta border border-terracotta/25
+           px-2.5 py-0.5 font-heading text-[11px] uppercase tracking-wider;
+  }
+
+  .badge-unsure {
+    @apply inline-flex items-center rounded-full bg-sand text-olive border border-olive/25
+           px-2.5 py-0.5 font-heading text-[11px] uppercase tracking-wider;
+  }
+}
+
+/* Recharts: keep the grid and axes recessive. */
+.recharts-cartesian-axis-tick text {
+  font-family: Poppins, system-ui, sans-serif;
+  font-size: 11px;
+  fill: #8a857b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

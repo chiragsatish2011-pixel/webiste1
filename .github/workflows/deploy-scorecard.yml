@@ -1,0 +1,70 @@
+# Builds the Sadvidya Translation Scorecard and publishes it to GitHub Pages.
+#
+# One-time setup in the repository: Settings -> Pages -> Source = "GitHub Actions".
+# After that, every push to main that touches the dashboard redeploys the site at
+# https://chiragsatish2011-pixel.github.io/webiste1/
+name: Deploy Scorecard to Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'sadvidya-dashboard/**'
+      - '.github/workflows/deploy-scorecard.yml'
+  # Lets you redeploy by hand from the Actions tab.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys overwrite each other; the newest one wins.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: sadvidya-dashboard
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: sadvidya-dashboard/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run the tests
+        run: npm test
+
+      - name: Build
+        # GitHub Pages serves this repository under /webiste1/.
+        run: npx vite build --base=/${{ github.event.repository.name }}/
+
+      - name: Add the single-page fallback
+        # Pages has no rewrite rules: it serves 404.html for an unknown path.
+        # Handing it a copy of index.html means a deep link such as
+        # /webiste1/articles/3 still loads the app instead of a 404 page.
+        run: cp dist/index.html dist/404.html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: sadvidya-dashboard/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
