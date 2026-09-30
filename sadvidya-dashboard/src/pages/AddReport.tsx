@@ -178,7 +178,12 @@ export default function AddReport() {
           >
             Enter a report by hand instead
           </button>
-          <a className="btn-quiet text-xs" href="./sample-flag-report.pdf" download>
+          {/* BASE_URL keeps this right whether the app sits at / or at /webiste1/. */}
+          <a
+            className="btn-quiet text-xs"
+            href={`${import.meta.env.BASE_URL}sample-flag-report.pdf`}
+            download
+          >
             Download a sample PDF
           </a>
         </div>

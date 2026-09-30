@@ -32,7 +32,24 @@ Other commands:
 
 ### Putting it online
 
-The repository is already set up for **Netlify** or **Vercel**, building from the
+**GitHub Pages is set up and is the one to use.** `.github/workflows/deploy-scorecard.yml`
+builds the dashboard and publishes it on every push to `main` that touches
+`sadvidya-dashboard/`. It runs the tests first, so a broken build never goes live.
+
+One switch, once: repository **Settings → Pages → Source = GitHub Actions**.
+Then merge to `main` and the site appears at
+<https://chiragsatish2011-pixel.github.io/webiste1/>. You can also redeploy by
+hand from the **Actions** tab.
+
+Two details the workflow handles for you: Pages serves the site under
+`/webiste1/`, so it builds with `--base=/webiste1/` and the router picks that up
+from `import.meta.env.BASE_URL`; and Pages has no rewrite rules, so `index.html`
+is copied to `404.html` and a deep link such as `/webiste1/articles/3` still
+loads the app.
+
+#### If you ever move to Netlify or Vercel instead
+
+The config for both is still in the repository, building from the
 `main` branch. The config files sit at the repository root because the dashboard
 lives in a sub-folder next to another site:
 
